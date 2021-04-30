@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+    "name": "Bookmark Page",
+    "version": "1.0",
+
+    "description": "A custom start page",
+    "homepage_url": "https://github.com/Noxde/StartPage",
+
+    "chrome_url_overrides": {
+        "newtab": "start_page/index.html"
+    },
+
+    "icons": {
+        "48": "icons/book-48.png",
+        "96": "icons/book-96.png"
+    },
+
+    "permissions": [
+        "bookmarks"
+    ]
+
+}
