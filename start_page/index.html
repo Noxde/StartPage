@@ -12,30 +12,28 @@
 </head>
 
 <body>
-    <!-- title -->
-    <div>
-        <h1>StartPage</h1>
-        <p><a href="https://github.com/Noxde/StartPage">Source code</a></p>
-    </div>
-
     <!-- quotes -->
-    <div>
-        <h2>Talk is cheap. Show me the code</h2>
-        <p>Linus Torvalds</p>
+    <div class="quotes">
+        <h2 class="quote">Talk is cheap. Show me the code</h2>
+        <span class="quote-author">Linus Torvalds</span>
     </div>
 
+    <!-- the bookmarks inner gets deleted and redrawn in javascript
+    changing it here won't affect javascript -->
     <div id="bookmarks-wrapper">
         <div id="bookmarks-inner">
+            <!-- bookmarks -->
             <div class="bookmark-div">
                 <img class="bookmark-icon" src="https://via.placeholder.com/150">
                 <a href="" class="bookmark-title">bookmark title</a>
             </div>
-        </div>
-    </div>
 
-    <!-- add bookmark button -->
-    <div>
-        <button id="add-bookmark-button">add</button>
+            <!-- add bookmark button -->
+            <div id="add-div" class="bookmark-div">
+                <img class="bookmark-icon" src="resources/add-button.svg">
+                <button id="add-bookmark-button">add</button>
+            </div>
+        </div>
     </div>
 
     <!-- add bookmark modal -->
@@ -49,6 +47,11 @@
             </div>
         </div>
     </div>
+
+    <p class="source-code">
+        <img src="resources/GitHub-Mark-64px.png" id="github-icon">
+        <a href="https://github.com/Noxde/StartPage">Source code</a>
+    </p>
 
     <!-- TODO: connect to the backend -->
     <!-- <script>

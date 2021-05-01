@@ -110,8 +110,8 @@ async function update_bookmarks() {
     let bookmarks_inner = document.createElement("div")
     bookmarks_inner.setAttribute("id", "bookmarks-inner")
 
+    // bookmark div
     for (let i = 0; i < bookmarks.length; i++) {
-        console.log(i)
         let container = document.createElement("div")
         container.setAttribute("class", "bookmark-div")
 
@@ -131,6 +131,18 @@ async function update_bookmarks() {
         bookmarks_inner.appendChild(container)
     }
 
+    // add button div
+    let add_div = document.createElement("div")
+    add_div.setAttribute("class", "bookmark-div")
+    add_div.addEventListener("click", open_add_bookmark_modal)
+
+    let icon = document.createElement("img")
+    icon.setAttribute("class", "bookmark-icon")
+    icon.setAttribute("src", "resources/add-button.svg")
+    add_div.appendChild(icon)
+
+    bookmarks_inner.appendChild(add_div)
+
     bookmarks_wrapper.appendChild(bookmarks_inner)
 }
 
@@ -144,9 +156,6 @@ async function init() {
     console.log(bookmark_folder);
 
     init_modal()
-
-    let add_button = document.getElementById("add-bookmark-button")
-    add_button.addEventListener("click", open_add_bookmark_modal)
 
     await update_bookmarks()
 }
