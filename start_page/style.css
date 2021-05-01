@@ -1,17 +1,44 @@
 /* i got the color pallet from here
 https://coolors.co/ffffff-84dcc6-95a3b3-f7717d-2b2d3a */
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 :root {
-    --primary-color: #84DCC6;
-    --secondary-color: #F7717D;
-    --faded-color: #95A3B3;
-    --white-color: #FFFFFF;
-    --background-color: #2B2D3A;
+    --primary-color: #84dcc6;
+    --secondary-color: #f7717d;
+    --faded-color: #95a3b3;
+    --white-color: #ffffff;
+    --background-color: #2b2d3a;
 }
 
 body {
     background-color: var(--background-color);
     color: var(--primary-color);
+    font-family: "Poppins", sans-serif;
+    padding: 2em;
+    margin: 0;
+    padding-top: 0;
+}
+
+.quotes {
+    padding-top: 5em;
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.quotes::before {
+    position: absolute;
+    content: '"';
+    font-size: 4rem;
+    width: min-content;
+    height: min-content;
+}
+
+.quote-author {
+    text-align: right;
 }
 
 .modal {
@@ -43,4 +70,58 @@ body {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+#bookmarks-inner {
+    padding-top: 5em;
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    gap: 5em;
+    align-items: baseline;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.bookmark-div {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bookmark-div .bookmark-icon {
+    width: 150px;
+    filter: invert(1);
+    cursor: pointer;
+    box-shadow: 0 0 2em hsla(0, 0%, 100%, 0.419);
+    border-radius: 10px;
+}
+
+.bookmark-title {
+    color: var(--white-color);
+    text-decoration: none;
+    max-width: 10em;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+#add-div .bookmark-icon {
+    filter: invert(0);
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+.source-code {
+    position: absolute;
+    left: calc(50% - 2em);
+}
+
+.source-code a {
+    color: var(--white-color);
+    font-weight: 400;
+}
+
+.source-code img {
+    filter: invert(100%);
+    width: 25px;
 }
