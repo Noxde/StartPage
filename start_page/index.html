@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    <!-- TODO: connect to the backend -->
+    <!-- <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script> -->
     <link rel="stylesheet" href="style.css">
     <title>StartPage</title>
 </head>
@@ -23,60 +24,44 @@
         <p>Linus Torvalds</p>
     </div>
 
-    <!-- bookmarks -->
-    <div class="bookmarks">
-        <div class="bookmark-row">
-            <div class="bookmark" id="bookmark-1">
+    <div id="bookmarks-wrapper">
+        <div id="bookmarks-inner">
+            <div class="bookmark-div">
                 <img class="bookmark-icon" src="https://via.placeholder.com/150">
-                <p class="bookmark-title">bookmark title</p>
-            </div>
-            <div class="bookmark" id="bookmark-2">
-                <img class="bookmark-icon" src="https://via.placeholder.com/150">
-                <p class="bookmark-title">bookmark title</p>
-            </div>
-            <div class="bookmark" id="bookmark-3">
-                <img class="bookmark-icon" src="https://via.placeholder.com/150">
-                <p class="bookmark-title">bookmark title</p>
-            </div>
-        </div>
-        <div class="bookmark-row">
-            <div class="bookmark" id="bookmark-4">
-                <img class="bookmark-icon" src="https://via.placeholder.com/150">
-                <p class="bookmark-title">bookmark title</p>
-            </div>
-            <div class="bookmark" id="bookmark-5">
-                <img class="bookmark-icon" src="https://via.placeholder.com/150">
-                <p class="bookmark-title">bookmark title</p>
-            </div>
-            <div class="bookmark" id="bookmark-6">
-                <img class="bookmark-icon" src="https://via.placeholder.com/150">
-                <p class="bookmark-title">bookmark title</p>
-            </div>
-        </div>
-        <div class="bookmark-row">
-            <div class="bookmark" id="bookmark-7">
-                <img class="bookmark-icon" src="https://via.placeholder.com/150">
-                <p class="bookmark-title">bookmark title</p>
-            </div>
-            <div class="bookmark" id="bookmark-8">
-                <img class="bookmark-icon" src="https://via.placeholder.com/150">
-                <p class="bookmark-title">bookmark title</p>
-            </div>
-            <div class="bookmark" id="bookmark-9">
-                <img class="bookmark-icon" src="https://via.placeholder.com/150">
-                <p class="bookmark-title">bookmark title</p>
+                <a href="" class="bookmark-title">bookmark title</a>
             </div>
         </div>
     </div>
 
-    <script>
+    <!-- add bookmark button -->
+    <div>
+        <button id="add-bookmark-button">add</button>
+    </div>
+
+    <!-- add bookmark modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-container">
+                <input type="text" id="modal-input-title" required>
+                <input type="url" id="modal-input-url" required>
+                <input type="button" id="modal-confirm-button" value="add" accesskey="enter">
+                <input type="button" id="modal-close-button" value="close" accesskey="escape">
+            </div>
+        </div>
+    </div>
+
+    <!-- TODO: connect to the backend -->
+    <!-- <script>
         //Initialize Parse server
         Parse.initialize(
             "yhRKv4pYG4AZOY2iCL9xVBHE874T3q1SGcNfMEH4",
             "BPwWTZPtNhY9yeB6xPE2sZpd7XXiyDivtKSbnLWm"
         ); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
         Parse.serverURL = "https://parseapi.back4app.com/";
-    </script>
+    </script> -->
+
+    <script src="script.js"></script>
+
 </body>
 
 </html>
