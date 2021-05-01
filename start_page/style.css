@@ -3,7 +3,6 @@ https://coolors.co/ffffff-84dcc6-95a3b3-f7717d-2b2d3a */
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 :root {
-<<<<<<< HEAD
     --primary-color: #84dcc6;
     --secondary-color: #f7717d;
     --faded-color: #95a3b3;
@@ -126,28 +125,3 @@ body {
     filter: invert(100%);
     width: 25px;
 }
-=======
-  --primary-color: #84dcc6;
-  --secondary-color: #f7717d;
-  --faded-color: #95a3b3;
-  --white-color: #ffffff;
-  --background-color: #2b2d3a;
-}
-
-body {
-  background-color: var(--background-color);
-  color: var(--primary-color);
-}
-
-.bookmarks {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1em;
-}
-
-.bookmark {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
->>>>>>> 49ec845 (changed html to use grid)
