@@ -1,40 +1,34 @@
 console.log("script was loaded!")
 
 async function init_bookmarks_folder() {
-    let folder = await browser.bookmarks.search("StartPageFolder").then((results) => {
+    await browser.bookmarks.search("StartPageFolder").then((results) => {
         if (results.length > 0) {
             console.log("retrieved the bookmarks folder")
-            return results[0]
-        } else {
-            return null
+            bookmark_folder = results[0]
         }
     })
-    if (!folder) {
-        let bm = {
+    if (!bookmark_folder) {
+        await browser.bookmarks.create({
             index: 0,
-            title: "StartPageFolder",
-        }
-        folder = await browser.bookmarks.create(bm).then((val) => {
+            title: "StartPageFolder"
+        }).then((val) => {
             if (val) {
                 console.log("created a new bookmarks folder")
-                return val
+                bookmark_folder = val
             } else {
                 console.log("failed to create a new bookmarks folder")
                 console.log(err)
             }
         })
     }
-    return folder
 }
 
 async function create_bookmark(bm_folder, title, url) {
-    let bm_details = {
+    let bookmark = await browser.bookmarks.create({
         parentId: bm_folder.id,
         title: title,
         url: url
-    }
-    console.log(bm_details)
-    let bookmark = await browser.bookmarks.create(bm_details).then((val, err) => {
+    }).then((val, err) => {
         if (val) {
             console.log("successfully created a bookmark")
             console.log(val)
@@ -85,9 +79,11 @@ function bookmark_onChanged_listener(id, change_info) {
 }
 
 function bookmark_onCreated_listener(id, bookmark_info) {
-    console.log(id, bookmark_info)
-    // TODO: substitute updating everything with just applying the changes.
-    update_bookmarks()
+    if (init_finished) {
+        console.log(id, bookmark_info)
+        // TODO: substitute updating everything with just applying the changes.
+        update_bookmarks()
+    }
 }
 
 function bookmark_onRemoved_listener(id, remove_info) {
@@ -108,35 +104,40 @@ async function update_bookmarks() {
     console.log("update bookmarks")
 
     let old_bookmarks_inner = document.getElementById("bookmarks-inner")
-    old_bookmarks_inner.remove()
-
-    let bookmarks = await browser.bookmarks.getSubTree(bookmark_folder.id)
-    bookmarks = bookmarks[0].children
-    console.log(bookmarks)
+    if (old_bookmarks_inner) {
+        old_bookmarks_inner.remove()
+    }
 
     let bookmarks_wrapper = document.getElementById("bookmarks-wrapper")
     let bookmarks_inner = document.createElement("div")
     bookmarks_inner.setAttribute("id", "bookmarks-inner")
 
-    // bookmark div
-    for (let i = 0; i < bookmarks.length; i++) {
-        let container = document.createElement("div")
-        container.setAttribute("class", "bookmark-div")
+    console.log("here", bookmark_folder.id)
+    let bookmarks = await browser.bookmarks.getSubTree(bookmark_folder.id)
+    bookmarks = bookmarks[0].children
+    if (bookmarks) {
+        console.log(bookmarks)
 
-        let icon = document.createElement("img")
-        icon.setAttribute("class", "bookmark-icon")
-        // TODO: handle missing favicon case
-        let favicon_url = get_favicon_url(bookmarks[i].url)
-        icon.setAttribute("src", favicon_url)
-        container.appendChild(icon)
+        // bookmark div
+        for (let i = 0; i < bookmarks.length; i++) {
+            let container = document.createElement("div")
+            container.setAttribute("class", "bookmark-div")
 
-        let ref = document.createElement("a")
-        ref.setAttribute("class", "bookmark-title")
-        ref.setAttribute("href", bookmarks[i].url)
-        ref.text = bookmarks[i].title
-        container.appendChild(ref)
+            let icon = document.createElement("img")
+            icon.setAttribute("class", "bookmark-icon")
+            // TODO: handle missing favicon case
+            let favicon_url = get_favicon_url(bookmarks[i].url)
+            icon.setAttribute("src", favicon_url)
+            container.appendChild(icon)
 
-        bookmarks_inner.appendChild(container)
+            let ref = document.createElement("a")
+            ref.setAttribute("class", "bookmark-title")
+            ref.setAttribute("href", bookmarks[i].url)
+            ref.text = bookmarks[i].title
+            container.appendChild(ref)
+
+            bookmarks_inner.appendChild(container)
+        }
     }
 
     // add button div
@@ -165,13 +166,15 @@ async function init() {
     browser.bookmarks.onCreated.addListener(bookmark_onCreated_listener)
     browser.bookmarks.onRemoved.addListener(bookmark_onRemoved_listener)
 
-    bookmark_folder = await init_bookmarks_folder()
+    await init_bookmarks_folder()
     console.log(bookmark_folder);
 
     init_modal()
+    init_finished = true
 
     await update_bookmarks()
 }
 
-let bookmark_folder;
+let bookmark_folder
+let init_finished = false
 init()
