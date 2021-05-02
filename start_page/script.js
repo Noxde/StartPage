@@ -141,6 +141,11 @@ async function update_bookmarks() {
     icon.setAttribute("src", "resources/add-button.svg")
     add_div.appendChild(icon)
 
+    let add_label = document.createElement("span")
+    add_label.innerText = "add"
+    add_label.setAttribute("id", "add-bookmark-label")
+    add_div.appendChild(add_label)
+
     bookmarks_inner.appendChild(add_div)
 
     bookmarks_wrapper.appendChild(bookmarks_inner)
