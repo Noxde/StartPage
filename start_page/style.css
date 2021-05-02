@@ -91,7 +91,7 @@ body {
 
 .bookmark-div .bookmark-icon {
     width: 150px;
-    filter: invert(1);
+    /* filter: invert(1); */
     cursor: pointer;
     box-shadow: 0 0 2em hsla(0, 0%, 100%, 0.419);
     border-radius: 10px;

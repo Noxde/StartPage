@@ -97,8 +97,10 @@ function bookmark_onRemoved_listener(id, remove_info) {
 }
 
 function get_favicon_url(bookmark_url) {
+    const best_icon_start = "https://besticon-demo.herokuapp.com/icon?url="
+    const best_icon_size = "&size=48..150..196"
     let url = new URL(bookmark_url)
-    url = new URL("favicon.ico", url.origin)
+    url = best_icon_start + url.host + best_icon_size
     return url
 }
 
