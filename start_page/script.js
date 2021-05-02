@@ -44,7 +44,7 @@ async function create_bookmark(bm_folder, title, url) {
 
 function open_add_bookmark_modal() {
     let modal = document.getElementById("modal")
-    modal.style.display = "block"
+    modal.style.display = "flex"
 }
 
 function init_modal() {
@@ -120,8 +120,9 @@ async function update_bookmarks() {
 
         // bookmark div
         for (let i = 0; i < bookmarks.length; i++) {
-            let container = document.createElement("div")
+            let container = document.createElement("a")
             container.setAttribute("class", "bookmark-div")
+            container.setAttribute("href", bookmarks[i].url)
 
             let icon = document.createElement("img")
             icon.setAttribute("class", "bookmark-icon")
@@ -130,10 +131,9 @@ async function update_bookmarks() {
             icon.setAttribute("src", favicon_url)
             container.appendChild(icon)
 
-            let ref = document.createElement("a")
+            let ref = document.createElement("span")
             ref.setAttribute("class", "bookmark-title")
-            ref.setAttribute("href", bookmarks[i].url)
-            ref.text = bookmarks[i].title
+            ref.innerHTML = bookmarks[i].title
             container.appendChild(ref)
 
             bookmarks_inner.appendChild(container)
