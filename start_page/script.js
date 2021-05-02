@@ -96,6 +96,12 @@ function bookmark_onRemoved_listener(id, remove_info) {
     update_bookmarks()
 }
 
+function get_favicon_url(bookmark_url) {
+    let url = new URL(bookmark_url)
+    url = new URL("favicon.ico", url.origin)
+    return url
+}
+
 async function update_bookmarks() {
     console.log("update bookmarks")
 
@@ -117,9 +123,9 @@ async function update_bookmarks() {
 
         let icon = document.createElement("img")
         icon.setAttribute("class", "bookmark-icon")
-        icon.setAttribute("alt", "https://via.placeholder.com/150")
-        // TODO: change the source with the website icon
-        icon.setAttribute("src", "https://via.placeholder.com/150")
+        // TODO: handle missing favicon case
+        let favicon_url = get_favicon_url(bookmarks[i].url)
+        icon.setAttribute("src", favicon_url)
         container.appendChild(icon)
 
         let ref = document.createElement("a")
