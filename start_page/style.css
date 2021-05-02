@@ -45,7 +45,7 @@ body {
 .modal {
   position: fixed;
   height: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
