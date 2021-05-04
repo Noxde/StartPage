@@ -1,86 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- TODO: connect to the backend -->
     <!-- <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script> -->
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
     <title>StartPage</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <!-- quotes -->
     <div class="quotes">
-      <h2 class="quote">Talk is cheap. Show me the code</h2>
-      <span class="quote-author">Linus Torvalds</span>
+        <h2 class="quote">Talk is cheap. Show me the code</h2>
+        <span class="quote-author">Linus Torvalds</span>
     </div>
 
     <!-- the bookmarks inner gets deleted and redrawn in javascript
     changing it here won't affect javascript -->
     <div id="bookmarks-wrapper">
-      <div id="bookmarks-inner">
-        <!-- bookmarks -->
-        <div class="bookmark-div">
-          <img class="bookmark-icon" src="https://via.placeholder.com/150" />
-          <a href="" class="bookmark-title">bookmark title</a>
-        </div>
+        <div id="bookmarks-inner">
+            <!-- bookmarks -->
+            <div class="bookmark-div draggable" draggable="true">
+                <img class="bookmark-icon" src="https://via.placeholder.com/150" />
+                <a href="" class="bookmark-title">bookmark title</a>
+            </div>
 
-        <!-- add bookmark button -->
-        <div id="add-div" class="bookmark-div">
-          <img class="bookmark-icon" src="resources/add-button.svg" />
-          <span id="add-bookmark-label">add</span>
+            <!-- add bookmark button -->
+            <div id="add-div" class="bookmark-div">
+                <img class="bookmark-icon" src="resources/add-button.svg" />
+                <span id="add-bookmark-label">add</span>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- add bookmark modal -->
     <div class="modal" id="modal">
-      <div class="modal-content">
-        <div class="modal-container">
-          <div class="modal-inputs">
-            <label for="URL">URL</label>
-            <input
-              class="modal-input"
-              type="url"
-              id="modal-input-url"
-              name="name"
-              required
-            />
-            <label for="name">Name</label>
-            <input
-              class="modal-input"
-              type="text"
-              id="modal-input-title"
-              name="URL"
-              required
-            />
-          </div>
+        <div class="modal-content">
+            <div class="modal-container">
+                <div class="modal-inputs">
+                    <label for="URL">URL</label>
+                    <input class="modal-input" type="url" id="modal-input-url" name="name" required />
+                    <label for="name">Name</label>
+                    <input class="modal-input" type="text" id="modal-input-title" name="URL" required />
+                </div>
 
-          <div class="modal-buttons">
-            <input
-              class="btn"
-              type="button"
-              id="modal-confirm-button"
-              value="add"
-              accesskey="enter"
-            />
-            <input
-              class="btn"
-              type="button"
-              id="modal-close-button"
-              value="close"
-              accesskey="escape"
-            />
-          </div>
+                <div class="modal-buttons">
+                    <input class="btn" type="button" id="modal-confirm-button" value="add" accesskey="enter" />
+                    <input class="btn" type="button" id="modal-close-button" value="close" accesskey="escape" />
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <p class="source-code">
-      <img src="resources/GitHub-Mark-64px.png" id="github-icon" />
-      <a href="https://github.com/Noxde/StartPage">Source code</a>
+        <img src="resources/GitHub-Mark-64px.png" id="github-icon" />
+        <a href="https://github.com/Noxde/StartPage">Source code</a>
     </p>
 
     <!-- TODO: connect to the backend -->
@@ -93,6 +71,6 @@
         Parse.serverURL = "https://parseapi.back4app.com/";
     </script> -->
 
-    <script src="script.js"></script>
-  </body>
+</body>
+
 </html>

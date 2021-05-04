@@ -50,20 +50,20 @@ function open_add_bookmark_modal() {
 function init_modal() {
     let modal = document.getElementById("modal")
 
-    window.onclick = function (event) {
+    window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none"
         }
     }
 
     let close_btn = document.getElementById("modal-close-button")
-    close_btn.onclick = function () {
+    close_btn.onclick = function() {
         modal.style.display = "none"
     }
 
     let confirm_btn = document.getElementById("modal-confirm-button")
 
-    confirm_btn.onclick = function () {
+    confirm_btn.onclick = function() {
         let title = document.getElementById("modal-input-title").value
         let url = document.getElementById("modal-input-url").value
 
@@ -74,21 +74,21 @@ function init_modal() {
 
 function bookmark_onChanged_listener(id, change_info) {
     console.log(id, change_info)
-    // TODO: substitute updating everything with just applying the changes.
+        // TODO: substitute updating everything with just applying the changes.
     update_bookmarks()
 }
 
 function bookmark_onCreated_listener(id, bookmark_info) {
     if (init_finished) {
         console.log(id, bookmark_info)
-        // TODO: substitute updating everything with just applying the changes.
+            // TODO: substitute updating everything with just applying the changes.
         update_bookmarks()
     }
 }
 
 function bookmark_onRemoved_listener(id, remove_info) {
     console.log(id, remove_info)
-    // TODO: substitute updating everything with just applying the changes.
+        // TODO: substitute updating everything with just applying the changes.
     update_bookmarks()
 }
 
@@ -100,13 +100,23 @@ function get_favicon_url(bookmark_url) {
     return url
 }
 
+function remove_old_bookmarks() {
+    let old_bookmarks_inner = document.getElementById("bookmarks-inner")
+    if (!old_bookmarks_inner) {
+        return
+    }
+    [...old_bookmarks_inner.children].forEach(bookmark => {
+        bookmark.removeEventListener('dragstart', null)
+    })
+
+    old_bookmarks_inner.removeEventListener('dragover', null)
+    old_bookmarks_inner.remove()
+}
+
 async function update_bookmarks() {
     console.log("update bookmarks")
 
-    let old_bookmarks_inner = document.getElementById("bookmarks-inner")
-    if (old_bookmarks_inner) {
-        old_bookmarks_inner.remove()
-    }
+    remove_old_bookmarks()
 
     let bookmarks_wrapper = document.getElementById("bookmarks-wrapper")
     let bookmarks_inner = document.createElement("div")
@@ -120,13 +130,12 @@ async function update_bookmarks() {
 
         // bookmark div
         for (let i = 0; i < bookmarks.length; i++) {
-            let container = document.createElement("a")
-            container.setAttribute("class", "bookmark-div")
+            let container = document.createElement("div")
+            container.setAttribute("class", "bookmark-div draggable")
             container.setAttribute("href", bookmarks[i].url)
 
             let icon = document.createElement("img")
             icon.setAttribute("class", "bookmark-icon")
-            // TODO: handle missing favicon case
             let favicon_url = get_favicon_url(bookmarks[i].url)
             icon.setAttribute("src", favicon_url)
             container.appendChild(icon)
@@ -158,6 +167,8 @@ async function update_bookmarks() {
     bookmarks_inner.appendChild(add_div)
 
     bookmarks_wrapper.appendChild(bookmarks_inner)
+
+    handle_dragging(bookmarks_inner)
 }
 
 
@@ -173,6 +184,46 @@ async function init() {
     init_finished = true
 
     await update_bookmarks()
+}
+
+function handle_dragging(container) {
+    const draggables = document.querySelectorAll('.draggable')
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging')
+        })
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging')
+        })
+    })
+    container.addEventListener('dragover', evt => {
+        // evt.preventDefault()
+        const draggable = document.querySelector('.dragging')
+        let after_element = get_drag_after_element(container, evt.clientX, evt.clientY)
+        if (after_element) {
+            container.insertBefore(draggable, after_element)
+        }
+    })
+}
+
+function get_drag_after_element(container, x, y) {
+    const draggable_elements = [...container.querySelectorAll('.draggable:not(.dragging)')]
+    return draggable_elements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect()
+        const offset_x = Math.abs(x - box.left - box.width / 2)
+        const offset_y = Math.abs(y - box.top - box.height / 2)
+        const offset = offset_x + offset_y
+        if (offset < closest.offset) {
+            return {
+                offset: offset,
+                element: child
+            }
+        } else {
+            return closest
+        }
+    }, {
+        offset: Number.POSITIVE_INFINITY
+    }).element
 }
 
 let bookmark_folder
