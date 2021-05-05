@@ -1,13 +1,24 @@
-# StartPage
+# new-tab
 
-A browser extension.
+## Project setup
+```
+npm install
+```
 
-### To try it out locally
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-1. Open Firefox, and go to `about:debugging` page.
+### Compiles and minifies for production
+```
+npm run build
+```
 
-2. Choose `This Firefox`.
+### Lints and fixes files
+```
+npm run lint
+```
 
-3. Click on `Load Temporary Add-on...`.
-
-4. Choose the `manifest.json` file from your local drive.
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
